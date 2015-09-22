@@ -1,5 +1,7 @@
 package billes;
 
+import core.SMA;
+
 public class Simulation {
 	
 	public static void printHelp() {
@@ -50,7 +52,7 @@ public class Simulation {
 		sma.addObserver(vue);
 		
 		for(int i = 0; i < nbMarbles; i++) {
-			sma.addAgent();
+			sma.addAgent(new Bille(sma.getEnv()));
 		}
 		
 		try {

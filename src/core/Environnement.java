@@ -1,4 +1,4 @@
-package billes;
+package core;
 
 import java.util.ArrayList;
 

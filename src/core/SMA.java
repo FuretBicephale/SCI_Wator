@@ -1,4 +1,4 @@
-package billes;
+package core;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +22,8 @@ public class SMA extends Observable {
 		this.agents = new ArrayList<Agent>();		
 	}
 	
-	public void addAgent() {
-		this.agents.add(new Agent(this.env));
-//		this.setChanged();
-//		this.notifyObservers();
+	public void addAgent(Agent a) {
+		this.agents.add(a);
 	}
 	
 	public int getNbAgents() {
@@ -34,6 +32,10 @@ public class SMA extends Observable {
 	
 	public Agent getAgent(int i) {
 		return this.agents.get(i);
+	}
+	
+	public Environnement getEnv() {
+		return this.env;
 	}
 
 	// Run the simulation for nbTours turns. Each turn, agents is shuffled and each agent are asked to make a decision.
@@ -68,7 +70,8 @@ public class SMA extends Observable {
 			
 			this.setChanged();
 			this.notifyObservers();
-			
+
+			Thread.sleep(sleepLength);
 		}
 		
 	}

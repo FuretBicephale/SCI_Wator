@@ -3,33 +3,19 @@ package billes;
 import java.awt.Color;
 import java.util.Random;
 
-public class Agent {
-	private static Random r = new Random();
-	private int posX;
-	private int posY;
-	private int oldPosX;
-	private int oldPosY;
-	private int stepX;
-	private int stepY;
-	private Environnement env;
-	private Color color;
+import core.Agent;
+import core.Environnement;
+
+public class Bille extends Agent {
+	
+	protected int stepX;
+	protected int stepY;
+	protected Color color;
 	
 	// Create the agent and choose a random position (cell must be empty) and direction in the environment
-	public Agent(Environnement env) {
-		boolean positionFound = false;
-		this.env = env;
+	public Bille(Environnement env) {
 		
-		while (!positionFound) {
-			int x = r.nextInt(env.getWidth());
-			int y = r.nextInt(env.getHeight());
-			
-			if (env.isBusy(x, y) == null) {
-				this.oldPosX = this.posX = x;
-				this.oldPosY = this.posY = y;
-				this.env.putAgent(x, y, this);
-				positionFound = true;
-			}
-		}
+		super(env);
 		
 		this.stepX = r.nextInt(3) - 1;
 		this.stepY = r.nextInt(3) - 1;
@@ -38,16 +24,13 @@ public class Agent {
 		
 		return;
 	}
-	
-	public Color getColor() {
-		return color;
-	}
 
 	// Ask agent to make a decision for the current turn
 	public void decide() {
+		
 		int newPosX;
 		int newPosY;
-		Agent aCollision;
+		Bille aCollision;
 		
 		this.env.removeAgent(this.posX, this.posY);
 		
@@ -68,7 +51,7 @@ public class Agent {
 			newPosY = this.posY + this.stepY;
 		}
 		
-		if ((aCollision = env.isBusy(newPosX, newPosY)) != null) {
+		if ((aCollision = (Bille)env.isBusy(newPosX, newPosY)) != null) {
 			aCollision.handleCollision(this);
 			
 			this.stepX = -this.stepX;
@@ -81,26 +64,14 @@ public class Agent {
 		
 		this.env.putAgent(this.posX, this.posY, this);
 	}
-	
-	public int getOldPosX() {
-		return oldPosX;
-	}
 
-	public int getOldPosY() {
-		return oldPosY;
-	}
-
-	private void handleCollision(Agent agent) {
+	private void handleCollision(Bille agent) {
 		this.stepX = agent.stepX;
 		this.stepY = agent.stepY;
 	}
 	
-	public int getPosX() {
-		return this.posX;
-	}
-	
-	public int getPosY() {
-		return this.posY;
+	public Color getColor() {
+		return color;
 	}
 	
 }

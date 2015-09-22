@@ -9,6 +9,8 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import core.SMA;
+
 public class Vue implements Observer {
 
 	JFrame frame;
@@ -46,19 +48,19 @@ public class Vue implements Observer {
 //		for(int i = 0; i < this.height-1; i++) g.drawLine(0, (i+1) * this.marbleSize, width * this.marbleSize, (i+1) * this.marbleSize);	
 		
 		for(int i = 0; i < sma.getNbAgents(); i++) {
-			Agent a = sma.getAgent(i);
+			Bille a = (Bille) sma.getAgent(i);
 			eraseMarble(a, g);
 			drawMarble(a, g);
 		}
 		
 	}
 	
-	private void drawMarble(Agent a, Graphics g) {
+	private void drawMarble(Bille a, Graphics g) {
 		g.setColor(a.getColor());
 		g.fillOval(a.getPosX()*this.marbleSize, a.getPosY()*this.marbleSize, this.marbleSize, this.marbleSize);
 	}
 	
-	private void eraseMarble(Agent a, Graphics g) {
+	private void eraseMarble(Bille a, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
 		g.fillOval(a.getOldPosX()*this.marbleSize, a.getOldPosY()*this.marbleSize, this.marbleSize, this.marbleSize);
 	}
