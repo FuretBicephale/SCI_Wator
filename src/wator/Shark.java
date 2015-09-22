@@ -37,5 +37,20 @@ public class Shark extends Fish {
 //			}
 		}
 	}
-
+	
+	protected void giveBirth() {
+		
+		for(int i = -1; i <= 1; i++) {
+			for(int j = -1; j <= 1; j++) {
+				int nextX = this.getNextX(i);
+				int nextY = this.getNextX(j);
+				if(this.env.isBusy(nextX, nextY) == null) {
+					// Add agent
+					return;
+				}
+			}
+		}	
+		
+	}
+	
 }

@@ -41,12 +41,6 @@ public class Vue implements Observer {
 		SMA sma = (SMA)arg0;
 		Graphics g = this.envPanel.getGraphics();
 
-		//this.envPanel.paint(g);
-		
-//		g.setColor(Color.black);
-//		for(int i = 0; i < this.width-1; i++) g.drawLine((i+1) * this.marbleSize, 0, (i+1) * this.marbleSize, height * this.marbleSize);
-//		for(int i = 0; i < this.height-1; i++) g.drawLine(0, (i+1) * this.marbleSize, width * this.marbleSize, (i+1) * this.marbleSize);	
-		
 		for(int i = 0; i < sma.getNbAgents(); i++) {
 			Bille a = (Bille) sma.getAgent(i);
 			eraseMarble(a, g);

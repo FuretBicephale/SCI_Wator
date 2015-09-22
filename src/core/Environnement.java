@@ -43,5 +43,4 @@ public class Environnement {
 		return toric;
 	}
 	
-	
 }
