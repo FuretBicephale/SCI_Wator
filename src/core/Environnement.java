@@ -35,6 +35,7 @@ public class Environnement {
 		return this.height;
 	}
 	
+	// Return the Agent at [x, y] or null if it's empty
 	public Agent isBusy(int x, int y) {
 		return this.espace[x][y];
 	}

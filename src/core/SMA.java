@@ -26,6 +26,12 @@ public class SMA extends Observable {
 		this.agents.add(a);
 	}
 	
+	// Remove agent a from environment and sma
+	public void removeAgent(Agent a) {
+		this.env.removeAgent(a.getPosX(), a.getPosY());
+		this.agents.remove(a);
+	}
+	
 	public int getNbAgents() {
 		return this.agents.size();
 	}
