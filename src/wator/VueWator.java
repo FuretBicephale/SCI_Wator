@@ -38,7 +38,7 @@ public class VueWator extends Vue {
 	
 	private void eraseTuna(Tuna t, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
-		g.fillOval(t.getPosX()*this.cellSize, t.getPosY()*this.cellSize, this.cellSize, this.cellSize);		
+		g.fillOval(t.getOldPosX()*this.cellSize, t.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);		
 	}
 	
 	private void drawShark(Shark s, Graphics g) {
@@ -49,7 +49,7 @@ public class VueWator extends Vue {
 	
 	private void eraseShark(Shark s, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
-		g.fillOval(s.getPosX()*this.cellSize, s.getPosY()*this.cellSize, this.cellSize, this.cellSize);	
+		g.fillOval(s.getOldPosX()*this.cellSize, s.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);	
 	}
 
 }

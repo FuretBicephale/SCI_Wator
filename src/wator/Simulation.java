@@ -1,11 +1,12 @@
 package wator;
 
+import billes.Bille;
 import core.SMA;
 
 public class Simulation {
 	
 	public static void printHelp() {
-		System.err.println("Use : Java Simulation envWidth envHeight marbleSize toric sleepLength nbMarbles nbTurns");
+		System.err.println("Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbTunas nbSharks nbTurns");
 		System.err.println("envWidth = Environment width (int)");
 		System.err.println("envHeight = Environment height (int)");
 		System.err.println("cellSize = Graphical size of each cell (int)");
@@ -52,6 +53,13 @@ public class Simulation {
 		SMA sma = new SMA(width, height, toric, sleepLength);
 		sma.init();
 		sma.addObserver(vue);
+		
+		for(int i = 0; i < nbTunas; i++) {
+			sma.addAgent(new Tuna(sma.getEnv()));
+		}
+		for(int i = 0; i < nbSharks; i++) {
+			sma.addAgent(new Shark(sma.getEnv()));
+		}
 		
 		try {
 			if (sansFin)

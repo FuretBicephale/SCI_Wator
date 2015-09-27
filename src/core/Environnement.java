@@ -1,10 +1,12 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Environnement {
 	
 	private Agent espace[][];
+	private List<Agent> newAgent;
 	private int width, height;
 	private boolean toric;
 	
@@ -12,6 +14,7 @@ public class Environnement {
 		this.width = width;
 		this.height = height;
 		this.toric = toric;
+		this.newAgent = new ArrayList<Agent>();
 	}
 	
 	// Create the 2D array of Agent
@@ -21,6 +24,7 @@ public class Environnement {
 	
 	public void putAgent(int x, int y, Agent a) {
 		this.espace[x][y] = a;
+		this.newAgent.add(a);
 	}
 	
 	public void removeAgent(int x, int y) {
@@ -42,6 +46,14 @@ public class Environnement {
 	
 	public boolean isToric() {
 		return toric;
+	}
+	
+	public List<Agent> getNewAgent() {
+		return this.newAgent;
+	}
+	
+	public void clearNewAgent() {
+		this.newAgent.clear();
 	}
 	
 }

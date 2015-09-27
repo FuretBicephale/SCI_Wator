@@ -55,6 +55,11 @@ public class SMA extends Observable {
 				a.decide();
 			}
 			
+			for(Agent a : this.env.getNewAgent()) {
+				this.addAgent(a);
+			}
+			this.env.clearNewAgent();
+			
 			this.setChanged();
 			this.notifyObservers();
 
@@ -73,6 +78,11 @@ public class SMA extends Observable {
 			for(Agent a : agents) {
 				a.decide();
 			}
+			
+			for(Agent a : this.env.getNewAgent()) {
+				this.addAgent(a);
+			}
+			this.env.clearNewAgent();
 			
 			this.setChanged();
 			this.notifyObservers();
