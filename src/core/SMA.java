@@ -9,7 +9,7 @@ public class SMA extends Observable {
 	
 	private int sleepLength;
 	private Environnement env;
-	private List<Agent> agents;
+	private List<Agent> agents, deadAgents;
 	
 	public SMA(int width, int height, boolean toric, int sleepLength) {
 		this.env = new Environnement(width, height, toric);
@@ -19,7 +19,8 @@ public class SMA extends Observable {
 	// Initialize environment and agent
 	public void init() {
 		this.env.init();
-		this.agents = new ArrayList<Agent>();		
+		this.agents = new ArrayList<Agent>();	
+		this.deadAgents = new ArrayList<Agent>();		
 	}
 	
 	public void addAgent(Agent a) {
@@ -43,6 +44,14 @@ public class SMA extends Observable {
 	public Environnement getEnv() {
 		return this.env;
 	}
+	
+	public List<Agent> getDeadAgents() {
+		return this.deadAgents;
+	}
+	
+	public void clearDeadAgents() {
+		this.deadAgents.clear();
+	}
 
 	// Run the simulation for nbTours turns. Each turn, agents is shuffled and each agent are asked to make a decision.
 	public void run(int nbTours) throws InterruptedException {
@@ -50,15 +59,22 @@ public class SMA extends Observable {
 		this.notifyObservers();
 		
 		for(int i = 0; i < nbTours; i++) {
+			
 			Collections.shuffle(this.agents);
 			for(Agent a : agents) {
 				a.decide();
 			}
 			
-			for(Agent a : this.env.getNewAgent()) {
+			for(Agent a : this.env.getNewAgents()) {
 				this.addAgent(a);
 			}
-			this.env.clearNewAgent();
+			this.env.clearNewAgents();
+			
+			for(Agent a : this.env.getDeadAgents()) {
+				this.removeAgent(a);
+				this.deadAgents.add(a);
+			}
+			this.env.clearDeadAgents();
 			
 			this.setChanged();
 			this.notifyObservers();
@@ -74,15 +90,23 @@ public class SMA extends Observable {
 		this.notifyObservers();
 		
 		while(true) {
+			System.out.println("Population = " + this.agents.size());
+			
 			Collections.shuffle(this.agents);
 			for(Agent a : agents) {
 				a.decide();
 			}
 			
-			for(Agent a : this.env.getNewAgent()) {
+			for(Agent a : this.env.getNewAgents()) {
 				this.addAgent(a);
 			}
-			this.env.clearNewAgent();
+			this.env.clearNewAgents();
+			
+			for(Agent a : this.env.getDeadAgents()) {
+				this.removeAgent(a);
+				this.deadAgents.add(a);
+			}
+			this.env.clearDeadAgents();
 			
 			this.setChanged();
 			this.notifyObservers();

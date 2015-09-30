@@ -29,6 +29,15 @@ public class VueWator extends Vue {
 			}
 		}
 		
+		for(Agent a : sma.getDeadAgents()) {
+			if(a instanceof Tuna) {
+				eraseTuna((Tuna)a, g);
+			} else if(a instanceof Shark) {
+				eraseShark((Shark)a, g);			
+			}
+		}
+		sma.clearDeadAgents();
+		
 	}
 	
 	private void drawTuna(Tuna t, Graphics g) {

@@ -6,7 +6,7 @@ import java.util.List;
 public class Environnement {
 	
 	private Agent espace[][];
-	private List<Agent> newAgent;
+	private List<Agent> newAgents, deadAgents;
 	private int width, height;
 	private boolean toric;
 	
@@ -14,7 +14,8 @@ public class Environnement {
 		this.width = width;
 		this.height = height;
 		this.toric = toric;
-		this.newAgent = new ArrayList<Agent>();
+		this.newAgents = new ArrayList<Agent>();
+		this.deadAgents = new ArrayList<Agent>();
 	}
 	
 	// Create the 2D array of Agent
@@ -24,11 +25,20 @@ public class Environnement {
 	
 	public void putAgent(int x, int y, Agent a) {
 		this.espace[x][y] = a;
-		this.newAgent.add(a);
+	}
+	
+	public void putNewAgent(int x, int y, Agent a) {
+		this.espace[x][y] = a;
+		this.newAgents.add(a);
 	}
 	
 	public void removeAgent(int x, int y) {
 		this.espace[x][y] = null;
+	}
+
+	public void removeDeadAgent(Agent a) {
+		this.deadAgents.add(a);
+		this.espace[a.getPosX()][a.getPosY()] = null;
 	}
 	
 	public int getWidth() {
@@ -48,12 +58,20 @@ public class Environnement {
 		return toric;
 	}
 	
-	public List<Agent> getNewAgent() {
-		return this.newAgent;
+	public List<Agent> getNewAgents() {
+		return this.newAgents;
 	}
 	
-	public void clearNewAgent() {
-		this.newAgent.clear();
+	public List<Agent> getDeadAgents() {
+		return this.deadAgents;
+	}
+	
+	public void clearNewAgents() {
+		this.newAgents.clear();
+	}
+	
+	public void clearDeadAgents() {
+		this.deadAgents.clear();
 	}
 	
 }
