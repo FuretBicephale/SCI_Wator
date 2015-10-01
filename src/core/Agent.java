@@ -25,7 +25,7 @@ public abstract class Agent {
 			if (env.isBusy(x, y) == null) {
 				this.oldPosX = this.posX = x;
 				this.oldPosY = this.posY = y;
-				this.env.putAgent(x, y, this);
+				this.env.putAgent(this);
 				positionFound = true;
 			}
 		}		
@@ -33,28 +33,24 @@ public abstract class Agent {
 	
 	// Create the agent at [x, y] (cell must be empty) in the environment
 	public Agent(Environnement env, int posX, int posY) throws BusyCellException {
-		
-		this.env = env;
-		
+				
 		if(env.isBusy(posX, posY) == null) {
+			this.env = env;
 			this.oldPosX = this.posX = posX;
 			this.oldPosY = this.posY = posY;
-			this.env.putAgent(posX, posY, this);
+			this.env.putAgent(this);
 		} else {
-			throw new BusyCellException("Cell [x, y] already occupied");
+			throw new BusyCellException("Cell [" + posX + ", " + posY + "] already occupied");
 		}
 		
 	}
 
-	// Ask agent to make a decision for the current turn
-	public abstract void decide();
-	
 	public int getOldPosX() {
-		return oldPosX;
+		return this.oldPosX;
 	}
 
 	public int getOldPosY() {
-		return oldPosY;
+		return this.oldPosY;
 	}
 	
 	public int getPosX() {
@@ -64,6 +60,9 @@ public abstract class Agent {
 	public int getPosY() {
 		return this.posY;
 	}
+		
+	// Ask agent to make a decision for the current turn
+	public abstract void decide();
 	
 }
 

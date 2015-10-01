@@ -10,18 +10,21 @@ import javax.swing.JPanel;
 
 public abstract class Vue implements Observer {
 
-	protected JFrame frame;
+	private JFrame frame;
+	private String name;
+	
 	protected JPanel envPanel;
 	protected int width, height, cellSize;
 	
-	public Vue(int width, int height, int cellSize) {
+	public Vue(int width, int height, int cellSize, String name) {
 		this.width = width;
 		this.height = height;
 		this.cellSize = cellSize;
+		this.name = name;
 	}
 	
 	public void init() {
-		this.frame = new JFrame("SCI_Billes");
+		this.frame = new JFrame(this.name);
 		this.frame.setResizable(false);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setVisible(true);

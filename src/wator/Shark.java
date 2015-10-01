@@ -1,5 +1,8 @@
 package wator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.Agent;
 import core.BusyCellException;
 import core.Environnement;
@@ -11,117 +14,94 @@ public class Shark extends Fish {
 
 	private int hungerCycle;
 	private int currentHungerCycle;
+	protected List<Agent> snackNeigbhoring;
 	
 	public Shark(Environnement env) {
 		super(env, SHARK_BIRTH_CYCLE);
 		this.hungerCycle = SHARK_HUNGER_CYCLE;
 		this.currentHungerCycle = 0;
+		this.snackNeigbhoring = new ArrayList<Agent>();
 	}
 
 	public Shark(Environnement env, int posX, int posY) throws BusyCellException {
 		super(env, posX, posY, SHARK_BIRTH_CYCLE);		
+		this.snackNeigbhoring = new ArrayList<Agent>();
 	}
 	
-	@Override
 	public void decide() {
 		super.decide();
 
+		// Does nothing if dead
 		if(this.dead)
 			return;
+
+		// Clear neighboring
+		this.snackNeigbhoring.clear();
 		
-		int [] indexNeighboursX = {-1, -1, -1, 0, 0, 1, 1, 1};
-		int [] indexNeighboursY = {-1, 0, 1, -1, 1, -1, 0, 1};
-		int nbNeighbour = indexNeighboursX.length;
-		int indexSnackX=-1;
-		int indexSnackY=-1;
-		
-		this.env.removeAgent(this.posX, this.posY);
-		
-		this.oldPosX = this.posX;
-		this.oldPosY = this.posY;
-		
+		// Search for food
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
 				int nextX = this.getNextX(i);
 				int nextY = this.getNextY(j);
-								
+				
 				if(nextX == this.posX && nextY == this.posY)
 					continue;
-								
-				// Provoque un problème de déplacement. A mettre après les boucles.
-				if(this.env.isBusy(nextX, nextY) == null) {
-					this.posX = nextX;
-					this.posY = nextY;
-					//break;
-					/*this.env.putAgent(this.posX, this.posY, this);
-					return;*/
-				} else if(this.env.isBusy(nextX, nextY) instanceof Tuna) {
-					indexSnackX = nextX;
-					indexSnackY = nextY;
+				
+				Agent a = this.env.isBusy(nextX, nextY);
+						
+				if(a != null && a instanceof Tuna) { 
+					this.snackNeigbhoring.add(a);
 				}
-			}				
-			/*if(this.posX != this.oldPosX || this.posY != this.oldPosY)
-				break;*/
+			}
 		}
+		
+		// Eats if possible and moves to food cell
+		if(this.snackNeigbhoring.size() > 0) {			
+			Agent food = this.snackNeigbhoring.get(this.r.nextInt(this.snackNeigbhoring.size()));
+			
+			this.eat(food);
 
-		this.env.putAgent(this.posX, this.posY, this);
+			this.oldPosX = this.posX;
+			this.oldPosY = this.posY;
+			this.posX = food.getPosX();
+			this.posY = food.getPosY();
+			
+			this.env.moveAgent(this);	
+			
+			return;
+		}
 		
-		/*for (int i=0 ; i < nbNeighbour ; i++) {
-			int x = indexNeighboursX[i] + this.posX;
-			int y = indexNeighboursY[i] + this.posY;
+		// Moves if can't eat
+		if(emptyNeigbhoring.size() > 0) {
+			this.oldPosX = this.posX;
+			this.oldPosY = this.posY;
 			
-			// Si on tombe dans une case en dehors des frontières
-			// TODO : gerer le toric
-			if (x < 0 || x > this.env.getWidth() - 1 || y < 0 || y > this.env.getHeight() - 1)
-				continue;
+			int[] coords = this.emptyNeigbhoring.remove(this.r.nextInt(this.emptyNeigbhoring.size()));
 			
-			Agent a = this.env.isBusy(x, y);
+			this.posX = coords[0];
+			this.posY = coords[1];
 			
-			if (a != null && a instanceof Tuna) {
-				indexSnackX = a.getPosX();
-				indexSnackY = a.getPosY();
-			}
-		}*/
+			this.env.moveAgent(this);			
+		}
 		
-		if(indexSnackX != -1 && indexSnackY != -1) {
-			System.out.println("MIAM");
-			this.currentHungerCycle = 0;
-			((Fish)this.env.isBusy(indexSnackX, indexSnackY)).die();
-		} else {
-			this.currentHungerCycle++;	
-			
-			if(this.currentHungerCycle >= this.hungerCycle) {
-				System.out.println("DIE");
-				this.die();
-				return;
-			}
-			
+		
+		this.currentHungerCycle++;	
+		
+		// Dies if doesn't eat since hungerCycle turns
+		if(this.currentHungerCycle >= this.hungerCycle) {
+			this.die();
+			return;
 		}
 		
 	}
 	
-	protected void giveBirth() {
-		
-		for(int i = -1; i <= 1; i++) {
-			for(int j = -1; j <= 1; j++) {
-				int nextX = this.getNextX(i);
-				int nextY = this.getNextY(j);
-				
-				if(nextX == this.posX && nextY == this.posY)
-					continue;
-				
-				if(this.env.isBusy(nextX, nextY) == null) {
-					try {
-						Shark child = new Shark(this.env, nextX, nextY);
-						this.env.putNewAgent(child.getPosX(), child.getPosY(), child);
-					} catch (BusyCellException e) {
-						System.err.println("Error : Trying to create a Shark in a busy cell");
-					}
-					return;
-				}
-			}
-		}	
-		
+	protected void giveBirth(int x, int y) throws BusyCellException {
+		Shark child = new Shark(this.env, x, y);	
+	}
+	
+	protected void eat(Agent a) {
+		((Fish)a).die();
+		this.currentHungerCycle = 0;	
 	}
 	
 }

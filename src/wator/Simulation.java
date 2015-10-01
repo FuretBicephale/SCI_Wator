@@ -47,7 +47,7 @@ public class Simulation {
 			return;
 		}
 
-		VueWator vue = new VueWator(width, height, cellSize);
+		VueWator vue = new VueWator(width, height, cellSize, "SCI_Wator");
 		vue.init();
 		
 		SMA sma = new SMA(width, height, toric, sleepLength);
@@ -55,12 +55,13 @@ public class Simulation {
 		sma.addObserver(vue);
 		
 		for(int i = 0; i < nbTunas; i++) {
-			sma.addAgent(new Tuna(sma.getEnv()));
-		}
-		for(int i = 0; i < nbSharks; i++) {
-			sma.addAgent(new Shark(sma.getEnv()));
+			new Tuna(sma.getEnv());
 		}
 		
+		for(int i = 0; i < nbSharks; i++) {
+			new Shark(sma.getEnv());
+		}
+				
 		try {
 			if (sansFin)
 				sma.run();

@@ -23,26 +23,16 @@ public class SMA extends Observable {
 		this.deadAgents = new ArrayList<Agent>();		
 	}
 	
-	public void addAgent(Agent a) {
-		this.agents.add(a);
+	public Environnement getEnv() {
+		return this.env;
 	}
-	
-	// Remove agent a from environment and sma
-	public void removeAgent(Agent a) {
-		this.env.removeAgent(a.getPosX(), a.getPosY());
-		this.agents.remove(a);
-	}
-	
+
 	public int getNbAgents() {
 		return this.agents.size();
 	}
-	
-	public Agent getAgent(int i) {
-		return this.agents.get(i);
-	}
-	
-	public Environnement getEnv() {
-		return this.env;
+
+	public List<Agent> getAgents() {
+		return this.agents;
 	}
 	
 	public List<Agent> getDeadAgents() {
@@ -53,33 +43,22 @@ public class SMA extends Observable {
 		this.deadAgents.clear();
 	}
 
+	public void addAgent(Agent a) {
+		this.agents.add(a);
+	}
+	
+	public void removeAgent(Agent a) {
+		this.agents.remove(a);
+	}
+	
 	// Run the simulation for nbTours turns. Each turn, agents is shuffled and each agent are asked to make a decision.
 	public void run(int nbTours) throws InterruptedException {
 		this.setChanged();
 		this.notifyObservers();
 		
 		for(int i = 0; i < nbTours; i++) {
-			
-			Collections.shuffle(this.agents);
-			for(Agent a : agents) {
-				a.decide();
-			}
-			
-			for(Agent a : this.env.getNewAgents()) {
-				this.addAgent(a);
-			}
-			this.env.clearNewAgents();
-			
-			for(Agent a : this.env.getDeadAgents()) {
-				this.removeAgent(a);
-				this.deadAgents.add(a);
-			}
-			this.env.clearDeadAgents();
-			
-			this.setChanged();
-			this.notifyObservers();
-
-			Thread.sleep(sleepLength);
+			this.doTurn();
+			Thread.sleep(sleepLength);	
 		}
 		
 	}
@@ -90,30 +69,35 @@ public class SMA extends Observable {
 		this.notifyObservers();
 		
 		while(true) {
-			System.out.println("Population = " + this.agents.size());
-			
-			Collections.shuffle(this.agents);
-			for(Agent a : agents) {
-				a.decide();
-			}
-			
-			for(Agent a : this.env.getNewAgents()) {
-				this.addAgent(a);
-			}
-			this.env.clearNewAgents();
-			
-			for(Agent a : this.env.getDeadAgents()) {
-				this.removeAgent(a);
-				this.deadAgents.add(a);
-			}
-			this.env.clearDeadAgents();
-			
-			this.setChanged();
-			this.notifyObservers();
+			this.doTurn();
+			Thread.sleep(sleepLength);			
+		}
+	}
+	
+	public void doTurn() {
 
-			Thread.sleep(sleepLength);
+		for(Agent a : this.env.getNewAgents()) {
+			this.addAgent(a);
+		}
+		this.env.clearNewAgents();
+
+		for(Agent a : this.env.getDeadAgents()) {
+			this.removeAgent(a);
+			this.deadAgents.add(a);
+		}
+		this.env.clearDeadAgents();
+		
+		Collections.shuffle(this.agents);
+				
+		for(Agent a : this.agents) {
+			a.decide();
 		}
 		
+		System.out.println("Population = " + this.agents.size());
+		
+		this.setChanged();
+		this.notifyObservers();
+
 	}
 	
 }

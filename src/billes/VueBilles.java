@@ -3,23 +3,23 @@ package billes;
 import java.awt.Graphics;
 import java.util.Observable;
 
+import core.Agent;
 import core.SMA;
 import core.Vue;
 
 public class VueBilles extends Vue {
 
 	public VueBilles(int width, int height, int marbleSize) {
-		super(width, height, marbleSize);
+		super(width, height, marbleSize, "SCI_Billes");
 	}
 	
 	public void update(Observable arg0, Object arg1) {
 		SMA sma = (SMA)arg0;
 		Graphics g = this.envPanel.getGraphics();
 
-		for(int i = 0; i < sma.getNbAgents(); i++) {
-			Bille a = (Bille) sma.getAgent(i);
-			eraseMarble(a, g);
-			drawMarble(a, g);
+		for(Agent a : sma.getAgents()) {
+			eraseMarble((Bille)a, g);
+			drawMarble((Bille)a, g);
 		}
 		
 	}

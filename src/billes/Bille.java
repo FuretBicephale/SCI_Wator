@@ -32,8 +32,6 @@ public class Bille extends Agent {
 		int newPosY;
 		Bille aCollision;
 		
-		this.env.removeAgent(this.posX, this.posY);
-		
 		this.oldPosX = this.posX;
 		this.oldPosY = this.posY;
 		
@@ -62,7 +60,7 @@ public class Bille extends Agent {
 			this.posY = newPosY;
 		}
 		
-		this.env.putAgent(this.posX, this.posY, this);
+		this.env.moveAgent(this);
 	}
 
 	private void handleCollision(Bille agent) {

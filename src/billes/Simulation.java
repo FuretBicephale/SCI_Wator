@@ -52,7 +52,7 @@ public class Simulation {
 		sma.addObserver(vue);
 		
 		for(int i = 0; i < nbMarbles; i++) {
-			sma.addAgent(new Bille(sma.getEnv()));
+			new Bille(sma.getEnv());
 		}
 		
 		try {

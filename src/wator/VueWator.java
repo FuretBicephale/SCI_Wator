@@ -10,16 +10,15 @@ import core.Vue;
 
 public class VueWator extends Vue {
 
-	public VueWator(int width, int height, int cellSize) {
-		super(width, height, cellSize);
+	public VueWator(int width, int height, int cellSize, String name) {
+		super(width, height, cellSize, name);
 	}
 	
 	public void update(Observable arg0, Object arg1) {
 		SMA sma = (SMA)arg0;
 		Graphics g = this.envPanel.getGraphics();
 
-		for(int i = 0; i < sma.getNbAgents(); i++) {
-			Agent a = sma.getAgent(i);
+		for(Agent a : sma.getAgents()) {
 			if(a instanceof Tuna) {
 				eraseTuna((Tuna)a, g);
 				drawTuna((Tuna)a, g);
@@ -31,9 +30,9 @@ public class VueWator extends Vue {
 		
 		for(Agent a : sma.getDeadAgents()) {
 			if(a instanceof Tuna) {
-				eraseTuna((Tuna)a, g);
+				eraseDeadTuna((Tuna)a, g);
 			} else if(a instanceof Shark) {
-				eraseShark((Shark)a, g);			
+				eraseDeadShark((Shark)a, g);			
 			}
 		}
 		sma.clearDeadAgents();
@@ -50,6 +49,11 @@ public class VueWator extends Vue {
 		g.fillOval(t.getOldPosX()*this.cellSize, t.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);		
 	}
 	
+	private void eraseDeadTuna(Tuna t, Graphics g) {
+		g.setColor(this.envPanel.getBackground());
+		g.fillOval(t.getPosX()*this.cellSize, t.getPosY()*this.cellSize, this.cellSize, this.cellSize);		
+	}
+	
 	private void drawShark(Shark s, Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillOval(s.getPosX()*this.cellSize, s.getPosY()*this.cellSize, this.cellSize, this.cellSize);		
@@ -59,6 +63,11 @@ public class VueWator extends Vue {
 	private void eraseShark(Shark s, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
 		g.fillOval(s.getOldPosX()*this.cellSize, s.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);	
+	}
+	
+	private void eraseDeadShark(Shark s, Graphics g) {
+		g.setColor(this.envPanel.getBackground());
+		g.fillOval(s.getPosX()*this.cellSize, s.getPosY()*this.cellSize, this.cellSize, this.cellSize);	
 	}
 
 }
