@@ -13,20 +13,20 @@ public abstract class Fish extends Agent {
 	private int currentBirthCycle;
 	
 	protected boolean dead;
-	protected List<int[]> emptyNeigbhoring;
+	protected List<int[]> emptyNeighboring;
 
 	public Fish(Environnement env, int birthCycle) {
 		super(env);
 		this.birthCycle = birthCycle;
 		this.currentBirthCycle = 0;
-		this.emptyNeigbhoring = new ArrayList<int[]>();
+		this.emptyNeighboring = new ArrayList<int[]>();
 	}
 	
 	public Fish(Environnement env, int posX, int posY, int birthCycle) throws BusyCellException {
 		super(env, posX, posY);
 		this.birthCycle = birthCycle;
 		this.currentBirthCycle = 0;
-		this.emptyNeigbhoring = new ArrayList<int[]>();
+		this.emptyNeighboring = new ArrayList<int[]>();
 	}
 
 	protected int getNextX(int step) {		
@@ -64,7 +64,7 @@ public abstract class Fish extends Agent {
 			return;
 		
 		// Clear neighboring
-		this.emptyNeigbhoring.clear();
+		this.emptyNeighboring.clear();
 		
 		// Look neighboring
 		for(int i = -1; i <= 1; i++) {
@@ -75,17 +75,17 @@ public abstract class Fish extends Agent {
 				if(nextX == this.posX && nextY == this.posY)
 					continue;
 				
-				if(this.env.isBusy(nextX, nextY) == null) { 
+				if(this.env.getAgent(nextX, nextY) == null) { 
 					int[] coords = {nextX, nextY};
-					this.emptyNeigbhoring.add(coords);
+					this.emptyNeighboring.add(coords);
 				}
 			}
 		}
 		
 		// Gives birth if possible
-		if(this.currentBirthCycle >= this.birthCycle && this.emptyNeigbhoring.size() > 0) {
+		if(this.currentBirthCycle >= this.birthCycle && this.emptyNeighboring.size() > 0) {
 			currentBirthCycle = 0;
-			int[] coords = this.emptyNeigbhoring.remove(this.r.nextInt(this.emptyNeigbhoring.size()));
+			int[] coords = this.emptyNeighboring.remove(this.r.nextInt(this.emptyNeighboring.size()));
 			try {
 				this.giveBirth(coords[0], coords[1]);
 			} catch(BusyCellException e) {

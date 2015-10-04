@@ -87,13 +87,13 @@ public class SMA extends Observable {
 		}
 		this.env.clearDeadAgents();
 		
+		System.out.println("Population = " + this.agents.size());
+		
 		Collections.shuffle(this.agents);
 				
 		for(Agent a : this.agents) {
 			a.decide();
 		}
-		
-		System.out.println("Population = " + this.agents.size());
 		
 		this.setChanged();
 		this.notifyObservers();

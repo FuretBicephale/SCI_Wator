@@ -22,7 +22,7 @@ public abstract class Agent {
 			int x = r.nextInt(env.getWidth());
 			int y = r.nextInt(env.getHeight());
 			
-			if (env.isBusy(x, y) == null) {
+			if (env.getAgent(x, y) == null) {
 				this.oldPosX = this.posX = x;
 				this.oldPosY = this.posY = y;
 				this.env.putAgent(this);
@@ -34,7 +34,7 @@ public abstract class Agent {
 	// Create the agent at [x, y] (cell must be empty) in the environment
 	public Agent(Environnement env, int posX, int posY) throws BusyCellException {
 				
-		if(env.isBusy(posX, posY) == null) {
+		if(env.getAgent(posX, posY) == null) {
 			this.env = env;
 			this.oldPosX = this.posX = posX;
 			this.oldPosY = this.posY = posY;

@@ -42,7 +42,7 @@ public class Tuna extends Fish {
 				if(nextX == this.posX && nextY == this.posY)
 					continue;
 				
-				Agent a = this.env.isBusy(nextX, nextY);
+				Agent a = this.env.getAgent(nextX, nextY);
 						
 				if(a != null && a instanceof Shark) { 
 					int[] coords = {nextX, nextY};
@@ -51,11 +51,11 @@ public class Tuna extends Fish {
 			}
 		}
 		
-		if(emptyNeigbhoring.size() > 0) {
+		if(emptyNeighboring.size() > 0) {
 			this.oldPosX = this.posX;
 			this.oldPosY = this.posY;
 			
-			int[] coords = this.emptyNeigbhoring.remove(this.r.nextInt(this.emptyNeigbhoring.size()));
+			int[] coords = this.emptyNeighboring.remove(this.r.nextInt(this.emptyNeighboring.size()));
 			this.posX = coords[0];
 			this.posY = coords[1];
 			

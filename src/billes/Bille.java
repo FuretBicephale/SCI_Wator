@@ -49,7 +49,7 @@ public class Bille extends Agent {
 			newPosY = this.posY + this.stepY;
 		}
 		
-		if ((aCollision = (Bille)env.isBusy(newPosX, newPosY)) != null) {
+		if ((aCollision = (Bille)env.getAgent(newPosX, newPosY)) != null) {
 			aCollision.handleCollision(this);
 			
 			this.stepX = -this.stepX;
