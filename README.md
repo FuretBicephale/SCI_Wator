@@ -26,7 +26,7 @@ Lorsqu'un agent est prévenu d'une collision provoquée par un autre agent, il l
 * jar cvfe Billes.jar billes.Simulation ./\*/\*.class
 
 ##### Pour exécuter :
-* java -jar Billes.jar <nb_cases_largueur> <nb_cases_hauteur> <taille_billes> <toric (true/false)> <latence en ms> <nb_billes> [<nb_tours>]
+* java -jar Billes.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_billes\> \<toric (true/false)\> \<latence en ms\> \<nb\_billes\> [\<nb\_tours\>]
 
 ##### Exemple :
 * java -jar Billes.jar 50 50 10 false 1000 20 100 : Environnement non torique de 50 sur 50 cases de 10 pixels de côté contenant 20 billes. L'environnement fait 500 pixels sur 500 pixels. La simulation dure 100 tours et attends 1000 ms entre chaque tour.
@@ -49,7 +49,7 @@ Les requins sont des poissons ayant la particularité de manger des poissons de 
 * jar cvfe Wator.jar wator.Simulation ./\*/\*.class
 
 ##### Pour exécuter :
-* java -jar Wator.jar <nb_cases_largueur> <nb_cases_hauteur> <taille_cases> <toric (true/false)> <latence en ms> <nb_thons> <nb_requins> [<nb_tours>]
+* java -jar Wator.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_cases\> \<toric (true/false)\> \<latence en ms\> \<nb\_thons\> \<nb\_requins\> [\<nb\_tours\>]
 
 ##### Exemple :
 * java -jar Wator.jar 50 50 10 true 100 500 100 : Environnement torique de 50 sur 50 cases de 10 pixels de côté contenant 500 thons et 100 requins. L'environnement fait 500 pixels sur 500 pixels. La simulation dure indéfiniment et attends 100 ms entre chaque tour.
