@@ -19,13 +19,13 @@ Lors de la prise de décision, l'agent va regarder la case où il est censé all
 
 Lorsqu'un agent est prévenu d'une collision provoquée par un autre agent, il la prend en compte en prenant la vitesse en X et en Y de cet agent, peut importe ses vitesses initiales.
 
-##### Pour compiler :
+##### Pour compiler (dossier src) :
 * javac ./\*/\*.java
 
-##### Pour créer le jar :
+##### Pour créer le jar (dossier src) :
 * jar cvfe Billes.jar billes.Simulation ./\*/\*.class
 
-##### Pour exécuter :
+##### Pour exécuter (dossier src) :
 * java -jar Billes.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_billes\> \<toric (true/false)\> \<latence en ms\> \<nb\_billes\> [\<nb\_tours\>]
 
 ##### Exemple :
@@ -42,13 +42,19 @@ Les poissons peuvent aussi se reproduire. En effet, ils possèdent une fréquenc
 
 Les requins sont des poissons ayant la particularité de manger des poissons de type thon. Si un requin ne mange pas pendant un nombre pré-défini de tours, il meurt. Il est donc nécessaire que chaque requin mange dès que possible. Pour ce faire, le requin va analyser son environnement pour trouver les thons voisins. Si il en trouve, il mange un de ces poissons, choisi aléatoirement, et se déplace sur sa case. Sinon, il se déplace et retentera la prochaine fois ou meurt si il n'a pas mangé depuis trop longtemps.
 
-##### Pour compiler :
+Dans la vue, les thons sont représentés par des cercles gris et les requins par des cercles bleus.
+
+A la fin de la simulation, deux graphes sont générés. Le premier (population), constitué de deux courbes, donne le nombre de thons et de requins en fonction du tour. Le second (ratio) donne le ratio entre les thons et les requins. Afin d'afficher ces graphes, il est possible d'utiliser les deux lignes de commandes suivantes dans le dossier SCI_WATOR :
+* gnuplot population
+* gnuplot ratio
+
+##### Pour compiler (dossier src) :
 * javac ./\*/\*.java
 
-##### Pour créer le jar :
+##### Pour créer le jar (dossier src) :
 * jar cvfe Wator.jar wator.Simulation ./\*/\*.class
 
-##### Pour exécuter :
+##### Pour exécuter (dossier src) :
 * java -jar Wator.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_cases\> \<toric (true/false)\> \<latence en ms\> \<nb\_thons\> \<nb\_requins\> [\<nb\_tours\>]
 
 ##### Exemple :
