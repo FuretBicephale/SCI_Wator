@@ -20,10 +20,10 @@ Lors de la prise de décision, l'agent va regarder la case où il est censé all
 Lorsqu'un agent est prévenu d'une collision provoquée par un autre agent, il la prend en compte en prenant la vitesse en X et en Y de cet agent, peut importe ses vitesses initiales.
 
 ##### Pour compiler :
-* javac ./billes/*.java
+* javac ./\*/\*.java
 
 ##### Pour créer le jar :
-* jar cvfe Billes.jar billes.Simulation ./*/*.class
+* jar cvfe Billes.jar billes.Simulation ./\*/\*.class
 
 ##### Pour exécuter :
 * java -jar Billes.jar <nb_cases_largueur> <nb_cases_hauteur> <taille_billes> <toric (true/false)> <latence en ms> <nb_billes> [<nb_tours>]
@@ -43,10 +43,10 @@ Les poissons peuvent aussi se reproduire. En effet, ils possèdent une fréquenc
 Les requins sont des poissons ayant la particularité de manger des poissons de type thon. Si un requin ne mange pas pendant un nombre pré-défini de tours, il meurt. Il est donc nécessaire que chaque requin mange dès que possible. Pour ce faire, le requin va analyser son environnement pour trouver les thons voisins. Si il en trouve, il mange un de ces poissons, choisi aléatoirement, et se déplace sur sa case. Sinon, il se déplace et retentera la prochaine fois ou meurt si il n'a pas mangé depuis trop longtemps.
 
 ##### Pour compiler :
-* javac ./*/*.java
+* javac ./\*/\*.java
 
 ##### Pour créer le jar :
-* jar cvfe Wator.jar wator.Simulation ./*/*.class
+* jar cvfe Wator.jar wator.Simulation ./\*/\*.class
 
 ##### Pour exécuter :
 * java -jar Wator.jar <nb_cases_largueur> <nb_cases_hauteur> <taille_cases> <toric (true/false)> <latence en ms> <nb_thons> <nb_requins> [<nb_tours>]
