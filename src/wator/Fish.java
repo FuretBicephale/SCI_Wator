@@ -1,6 +1,7 @@
 package wator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import core.Agent;
@@ -79,6 +80,17 @@ public abstract class Fish extends Agent {
 					int[] coords = {nextX, nextY};
 					this.emptyNeighboring.add(coords);
 				}
+			}
+		}		
+		
+		// Suppression des doublons
+		for (int i=0 ; i<this.emptyNeighboring.size()-1 ; i++) {
+			int[] coords = this.emptyNeighboring.get(i);
+			for (int j=i+1 ; j<this.emptyNeighboring.size() ;) {
+				if (Arrays.equals(coords, this.emptyNeighboring.get(j)))
+					this.emptyNeighboring.remove(j);
+				else
+					j++;
 			}
 		}
 		
