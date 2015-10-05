@@ -70,8 +70,17 @@ public class Shark extends Fish {
 			
 			return;
 		}
+		else {
+			this.currentHungerCycle++;
+		}
 		
-		// Moves if can't eat
+		// Dies if doesn't eat since hungerCycle turns
+		if(this.currentHungerCycle >= this.hungerCycle) {
+			this.die();
+			return;
+		}
+		
+		// Moves if can't eat and still alive
 		if(emptyNeighboring.size() > 0) {
 			this.oldPosX = this.posX;
 			this.oldPosY = this.posY;
@@ -84,14 +93,6 @@ public class Shark extends Fish {
 			this.env.moveAgent(this);			
 		}
 		
-		
-		this.currentHungerCycle++;	
-		
-		// Dies if doesn't eat since hungerCycle turns
-		if(this.currentHungerCycle >= this.hungerCycle) {
-			this.die();
-			return;
-		}
 		
 	}
 	

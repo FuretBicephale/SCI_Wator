@@ -2,6 +2,7 @@ package wator;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,19 +32,24 @@ public class VueWator extends Vue {
 	
 	public void update(Observable arg0, Object arg1) {
 		SMA sma = (SMA)arg0;
-		Graphics g = this.envPanel.getGraphics();
-
-		for(Agent a : sma.getDeadAgents()) {
-			eraseDeadFish((Fish) a, g);
-		}
-		sma.clearDeadAgents();
+		Image offScreen = this.envPanel.createImage(this.envPanel.getWidth(), this.envPanel.getHeight());
+		//Graphics g = this.envPanel.getGraphics();
+		Graphics g = offScreen.getGraphics();
 		
+		g.setColor(this.envPanel.getBackground());
+		g.fillRect(0, 0, this.envPanel.getWidth(), this.envPanel.getHeight());
+
 		int nbTuna = 0;
 		int nbShark = 0;
 		
 		for(Agent a : sma.getAgents()) {
 			eraseFish((Fish) a, g);
 		}
+		
+		for(Agent a : sma.getDeadAgents()) {
+			eraseDeadFish((Fish) a, g);
+		}
+		sma.clearDeadAgents();
 		
 		for(Agent a : sma.getAgents()) {
 			if(a instanceof Tuna) {
@@ -64,6 +70,8 @@ public class VueWator extends Vue {
 		} catch (IOException e) {
 			System.err.println("Erreur : Impossible d'ecrire dans le fichier csv.");
 		}
+		
+		this.envPanel.getGraphics().drawImage(offScreen, 0, 0, this.envPanel);
 	}
 	
 	private void drawTuna(Tuna t, Graphics g) {
@@ -84,6 +92,7 @@ public class VueWator extends Vue {
 	
 	private void eraseDeadFish(Fish f, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
+		g.fillOval(f.getOldPosX()*this.cellSize, f.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);
 		g.fillOval(f.getPosX()*this.cellSize, f.getPosY()*this.cellSize, this.cellSize, this.cellSize);	
 	}
 
