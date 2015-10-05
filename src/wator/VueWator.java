@@ -18,39 +18,32 @@ public class VueWator extends Vue {
 		SMA sma = (SMA)arg0;
 		Graphics g = this.envPanel.getGraphics();
 
-		for(Agent a : sma.getAgents()) {
-			if(a instanceof Tuna) {
-				eraseTuna((Tuna)a, g);
-				drawTuna((Tuna)a, g);
-			} else if(a instanceof Shark) {
-				eraseShark((Shark)a, g);
-				drawShark((Shark)a, g);				
-			}
-		}
-		
 		for(Agent a : sma.getDeadAgents()) {
-			if(a instanceof Tuna) {
-				eraseDeadTuna((Tuna)a, g);
-			} else if(a instanceof Shark) {
-				eraseDeadShark((Shark)a, g);			
-			}
+			eraseDeadFish((Fish) a, g);
 		}
 		sma.clearDeadAgents();
+		
+		int nbTuna = 0;
+		int nbShark = 0;
+		
+		for(Agent a : sma.getAgents()) {
+			eraseFish((Fish) a, g);
+		}
+		
+		for(Agent a : sma.getAgents()) {
+			if(a instanceof Tuna) {
+				drawTuna((Tuna)a, g);
+				nbTuna++;
+			} else if(a instanceof Shark) {
+				drawShark((Shark)a, g);
+				nbShark++;
+			}
+		}
 		
 	}
 	
 	private void drawTuna(Tuna t, Graphics g) {
 		g.setColor(Color.GRAY);
-		g.fillOval(t.getPosX()*this.cellSize, t.getPosY()*this.cellSize, this.cellSize, this.cellSize);		
-	}
-	
-	private void eraseTuna(Tuna t, Graphics g) {
-		g.setColor(this.envPanel.getBackground());
-		g.fillOval(t.getOldPosX()*this.cellSize, t.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);		
-	}
-	
-	private void eraseDeadTuna(Tuna t, Graphics g) {
-		g.setColor(this.envPanel.getBackground());
 		g.fillOval(t.getPosX()*this.cellSize, t.getPosY()*this.cellSize, this.cellSize, this.cellSize);		
 	}
 	
@@ -60,14 +53,14 @@ public class VueWator extends Vue {
 		
 	}
 	
-	private void eraseShark(Shark s, Graphics g) {
+	private void eraseFish(Fish f, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
-		g.fillOval(s.getOldPosX()*this.cellSize, s.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);	
+		g.fillOval(f.getOldPosX()*this.cellSize, f.getOldPosY()*this.cellSize, this.cellSize, this.cellSize);	
 	}
 	
-	private void eraseDeadShark(Shark s, Graphics g) {
+	private void eraseDeadFish(Fish f, Graphics g) {
 		g.setColor(this.envPanel.getBackground());
-		g.fillOval(s.getPosX()*this.cellSize, s.getPosY()*this.cellSize, this.cellSize, this.cellSize);	
+		g.fillOval(f.getPosX()*this.cellSize, f.getPosY()*this.cellSize, this.cellSize, this.cellSize);	
 	}
 
 }

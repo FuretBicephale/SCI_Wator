@@ -75,7 +75,7 @@ public class SMA extends Observable {
 	}
 	
 	public void doTurn() {
-
+		
 		for(Agent a : this.env.getNewAgents()) {
 			this.addAgent(a);
 		}
@@ -87,8 +87,6 @@ public class SMA extends Observable {
 		}
 		this.env.clearDeadAgents();
 		
-		System.out.println("Population = " + this.agents.size());
-		
 		Collections.shuffle(this.agents);
 				
 		for(Agent a : this.agents) {
@@ -99,5 +97,4 @@ public class SMA extends Observable {
 		this.notifyObservers();
 
 	}
-	
 }

@@ -71,7 +71,9 @@ public class Environnement {
 	}
 	
 	// Remove the agent on [oldPosX, oldPosY] and put it on [posX, posY]
-	public void moveAgent(Agent a) {
+	public void moveAgent(Agent a)/* throws BusyCellException */ {
+//		if (espace[a.getPosX()][a.getPosY()] != null)
+//			throw new BusyCellException("nut nut");
 		this.espace[a.getOldPosX()][a.getOldPosY()] = null;
 		this.espace[a.getPosX()][a.getPosY()] = a;		
 	}
