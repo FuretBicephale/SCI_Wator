@@ -19,13 +19,13 @@ Lors de la prise de décision, l'agent va regarder la case où il est censé all
 
 Lorsqu'un agent est prévenu d'une collision provoquée par un autre agent, il la prend en compte en prenant la vitesse en X et en Y de cet agent, peut importe ses vitesses initiales.
 
-##### Pour compiler :
+##### Pour compiler (dossier src) :
 * javac ./\*/\*.java
 
-##### Pour créer le jar :
+##### Pour créer le jar (dossier src) :
 * jar cvfe Billes.jar billes.Simulation ./\*/\*.class
 
-##### Pour exécuter :
+##### Pour exécuter (dossier src) :
 * java -jar Billes.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_billes\> \<toric (true/false)\> \<latence en ms\> \<nb\_billes\> [\<nb\_tours\>]
 
 ##### Exemple :
@@ -44,15 +44,17 @@ Les requins sont des poissons ayant la particularité de manger des poissons de 
 
 Dans la vue, les thons sont représentés par des cercles gris et les requins par des cercles bleus.
 
-A la fin de la simulation, deux graphes sont générés. Le premier, constitué de deux courbes, donne le nombre de thons (courbe grise) et de requins (courbe bleu) en fonction du tour. Le second donne le ratio entre les thons et les requins.
+A la fin de la simulation, deux graphes sont générés. Le premier (population), constitué de deux courbes, donne le nombre de thons et de requins en fonction du tour. Le second (ratio) donne le ratio entre les thons et les requins. Afin d'afficher ces graphes, il est possible d'utiliser les deux lignes de commandes suivantes dans le dossier SCI_WATOR :
+* gnuplot population
+* gnuplot ratio
 
-##### Pour compiler :
+##### Pour compiler (dossier src) :
 * javac ./\*/\*.java
 
-##### Pour créer le jar :
+##### Pour créer le jar (dossier src) :
 * jar cvfe Wator.jar wator.Simulation ./\*/\*.class
 
-##### Pour exécuter :
+##### Pour exécuter (dossier src) :
 * java -jar Wator.jar \<nb\_cases\_largueur\> \<nb\_cases\_hauteur\> \<taille\_cases\> \<toric (true/false)\> \<latence en ms\> \<nb\_thons\> \<nb\_requins\> [\<nb\_tours\>]
 
 ##### Exemple :
