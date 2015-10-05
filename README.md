@@ -42,6 +42,10 @@ Les poissons peuvent aussi se reproduire. En effet, ils possèdent une fréquenc
 
 Les requins sont des poissons ayant la particularité de manger des poissons de type thon. Si un requin ne mange pas pendant un nombre pré-défini de tours, il meurt. Il est donc nécessaire que chaque requin mange dès que possible. Pour ce faire, le requin va analyser son environnement pour trouver les thons voisins. Si il en trouve, il mange un de ces poissons, choisi aléatoirement, et se déplace sur sa case. Sinon, il se déplace et retentera la prochaine fois ou meurt si il n'a pas mangé depuis trop longtemps.
 
+Dans la vue, les thons sont représentés par des cercles gris et les requins par des cercles bleus.
+
+A la fin de la simulation, deux graphes sont générés. Le premier, constitué de deux courbes, donne le nombre de thons (courbe grise) et de requins (courbe bleu) en fonction du tour. Le second donne le ratio entre les thons et les requins.
+
 ##### Pour compiler :
 * javac ./\*/\*.java
 
